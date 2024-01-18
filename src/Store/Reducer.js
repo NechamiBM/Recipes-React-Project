@@ -1,19 +1,24 @@
-
-
 const initialState = {
     user: null,
     recipes: [],
     shoppingList: [],
-    currentRecipe: null
+    categoryList: [],
+    currentRecipe: null,
+    difficulties: [{ Id: 1, Name: 'קל' }, { Id: 2, Name: 'בינוני' }, { Id: 3, Name: 'קשה' }]
 }
-const Reducer = (state = initialState, action) => {
 
+const Reducer = (state = initialState, action) => {
     switch (action.type) {
         case "SET_USER": {
             return { ...state, user: action.payload }
         }
         case "SET_RECIPES": {
             return { ...state, recipes: action.payload }
+        }
+        case "DELETE_RECIPE": {
+            console.log("payload", action.payload);
+            const recipes = state.recipes.filter(r => r.Id !== action.payload)
+            return { ...state, recipes }
         }
         case "SET_SHOPPINGLIST": {
             return { ...state, shoppingList: action.payload }
@@ -23,17 +28,20 @@ const Reducer = (state = initialState, action) => {
             return { ...state, shoppingList }
         }
         case "EDIT_PRODUCT": {
-            console.log("action.payload",action.payload);
             const shoppingList = [...state.shoppingList];
             let index = shoppingList.findIndex(x => x.Name == action.payload.Name);
-            if (index == -1)
+            if (parseInt(index) === -1)
                 shoppingList.push(action.payload);
             else
-                if (action.payload.Count == 0)
+                if (parseInt(action.payload.Count) === 0)
                     shoppingList.splice(index, 1)
                 else
-                    shoppingList[index] = action.payload
+                    shoppingList[index].Count = action.payload.Count
             return { ...state, shoppingList }
+        }
+        case "SET_CATEGORIES": {
+            return { ...state, categoryList: action.payload }
+
         }
         // case "SET_RECIPE":
         //     return { ...state, recipes: action.data }

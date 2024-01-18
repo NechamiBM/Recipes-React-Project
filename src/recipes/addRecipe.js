@@ -1,4 +1,4 @@
-import Header from '../Header';
+import Header from '../Pages/Header';
 import * as yup from "yup";
 
 const schema = yup.object({

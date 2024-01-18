@@ -11,6 +11,21 @@ export const getShopingList = () => {
     });
 }
 
+export const addToCart = (product) => {
+    return dispach =>
+        axios.post(`http://localhost:8080/api/bay`, { Name: product.Name, UserId: userId, Count: 1 })
+            .then((res) => {
+                dispach({ type: "EDIT_PRODUCT", payload: { Name: product.Name, UserId: userId, Count: res.data.Count } });
+                Swal.fire({
+                    position: "top",
+                    icon: "success",
+                    title: product.Name + " \nנוסף בהצלחה לרשימת הקניות שלך",
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+            }).catch(err => console.error(err.response));
+}
+
 export const updateCount = (product, count) => {
     return dispatch => {
         if (product.Count + count == 0) {
@@ -26,14 +41,14 @@ export const updateCount = (product, count) => {
             }).then((result) => {
                 if (result.isConfirmed) {
                     axios.post(`http://localhost:8080/api/bay/delete/${product.Id}`)
-                        .then((res) => {
+                        .then(() => {
                             dispatch({ type: "DELETE_PRODUCT", payload: { Name: product.Name, user: product.UserId, Id: product.Id } });
                             Swal.fire({
                                 title: "נמחק!",
                                 text: product.Name + " הוסר מרשימת הקניות שלך",
                                 icon: "success",
                                 showConfirmButton: false,
-                                timer: 2000
+                                timer: 1500
                             });
                         }).catch((err) => {
                             Swal.fire({
@@ -51,7 +66,7 @@ export const updateCount = (product, count) => {
                 dispatch({ type: "EDIT_PRODUCT", payload: { Name: product.Name, UserId: product.UserId, Count: res.data.Count } })
             }).catch((err) => {
                 console.error(err, "err");
-            })
+            });
         }
     }
 }

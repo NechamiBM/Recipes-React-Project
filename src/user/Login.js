@@ -18,7 +18,8 @@ const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(schema)
     });
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+
     const onSubmit = (data) => {
         axios.post("http://localhost:8080/api/user/login", { Username: data.userName, Password: data.password }).then(x => {
             dispatch({ type: "SET_USER", payload: x.data });
@@ -31,7 +32,6 @@ const Login = () => {
                 title: "אופססס...",
                 text: err.response.data
             });
-            
             navigate('/');
         })
     };
@@ -45,9 +45,9 @@ const Login = () => {
                 <input type='password'{...register("password")} placeholder="סיסמא" />
                 <p style={{ color: "red" }}>{errors.password?.message}</p>
 
-                <Input type='submit' color="teal" />
+                <Input type='submit' />
             </Form>
-            <br></br>
+            <br />
             <Link to='/signup' >
                 <Button animated>
                     <Button.Content visible>אין לך חשבון?</Button.Content>

@@ -47,3 +47,7 @@
   position: absolute;
   left: 5px;
 }
+
+.recipe-img>img {
+  height: 220px !important;
+}

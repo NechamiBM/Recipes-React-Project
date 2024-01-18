@@ -1,15 +1,14 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import EnterPage from './user/EnterPage';
-import Login from './user/Login';
-import SignUp from './user/SignUp';
-import Home from './Home';
-import Recipe from './recipes/Recipe';
+import EnterPage from './User/EnterPage';
+import Login from './User/Login';
+import SignUp from './User/SignUp';
+import Home from './Pages/Home';
+import Recipe from './Recipes/Recipe';
 import 'react-hook-form';
-import AddRecipe from './recipes/addRecipe';
-import Recipes from './recipes/Recipes';
-import Buy from './Buy';
-
+import AddRecipe from './Recipes/AddRecipe';
+import Recipes from './Recipes/Recipes';
+import Buy from './Pages/Buy';
 
 function App() {
   return (

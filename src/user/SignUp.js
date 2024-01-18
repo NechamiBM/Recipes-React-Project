@@ -1,10 +1,10 @@
 import React from 'react'
-import { Form, Icon, Input, Message } from 'semantic-ui-react'
+import { Form, Icon, Input, Message, FormField } from 'semantic-ui-react'
 import * as yup from 'yup'
 import { useForm } from 'react-hook-form';
 import { yupResolver } from "@hookform/resolvers/yup"
 import axios from 'axios';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2'
 
@@ -19,7 +19,6 @@ const schema = yup.object({
 
 const SignUp = () => {
     const dispatch = useDispatch();
-    const user = useSelector(state => state?.user);
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(schema)
     });
@@ -30,49 +29,56 @@ const SignUp = () => {
         axios.post("http://localhost:8080/api/user/sighin", { Username: data.Username, Password: data.Password, Name: data.Name, Phone: data.Phone, Email: data.Email, Tz: data.Tz })
             .then(x => {
                 dispatch({ type: "SET_USER", payload: x.data });
-                console.log("x");
-                console.log(x.data);
                 localStorage.setItem("userName", x.data.Name);
                 localStorage.setItem("userId", x.data.Id);
                 navigate(`/home`);
             }).catch(err => {
-                console.log(err);
+                console.error(err);
                 Swal.fire({
                     icon: "error",
                     title: "אופססס...",
                     text: err.response.data
-                  });
+                });
                 navigate('/');
-            })
-        console.log("15985455");
-        console.log(user);
+            });
     }
+
     return (
         <div style={{ width: '60%', position: "absolute", left: "20%", backgroundColor: "coral", padding: "10px" }}>
-            <Message
-                attached
+            <Message attached
                 header='ברוכים הבאים לאתר מתכונים'
                 content='אנא הכנס פרטים מדויקים!'
             />
             <Form onSubmit={handleSubmit(onSubmit)}>
                 <br></br>
                 <input {...register("Username")} placeholder="שם משתמש" />
-                <p style={{color:"red"}}>{errors.Username?.message}</p>
+                <p style={{ color: "red" }}>{errors.Username?.message}</p>
 
                 <input type='password'{...register("Password")} placeholder="סיסמא" />
-                <p style={{color:"red"}}>{errors.Password?.message}</p>
+                <p style={{ color: "red" }}>{errors.Password?.message}</p>
 
                 <input {...register("Name")} placeholder="שם ומשפחה" />
-                <p style={{color:"red"}}>{errors.Name?.message}</p>
+                <p style={{ color: "red" }}>{errors.Name?.message}</p>
 
                 <input {...register("Phone")} placeholder="פלא'" />
-                <p style={{color:"red"}}>{errors.Phone?.message}</p>
-
+                <p style={{ color: "red" }}>{errors.Phone?.message}</p>
+{/* 
+                {errors.Email?.message ?
+                    <FormField
+                        id='form-input-control-error-email'
+                        control={Input}
+                        label='Email'
+                        placeholder='joe@schmoe.com'
+                        error={{
+                            content: 'Please enter a valid email address',
+                            pointing: 'below',
+                        }}
+                    /> : null} */}
                 <input {...register("Email")} placeholder="כתובת דואר אלקטרוני" />
-                <p style={{color:"red"}}>{errors.Email?.message}</p>
+                <p style={{ color: "red" }}>{errors.Email?.message}</p>
 
                 <input {...register("Tz")} placeholder="מספר זהות" />
-                <p style={{color:"red"}}>{errors.Tz?.message}</p>
+                <p style={{ color: "red" }}>{errors.Tz?.message}</p>
                 <Input type="submit" />
             </Form>
             <br></br>
@@ -81,7 +87,6 @@ const SignUp = () => {
                 יש לך חשבון?&nbsp;<Link to="/login">הכנס כאן</Link>&nbsp;במקום.
             </Message>
         </div >
-
     )
 }
 
