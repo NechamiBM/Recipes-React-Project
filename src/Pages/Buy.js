@@ -26,12 +26,12 @@ const Buy = () => {
                     </Message>
                     : shoppingList.map(item => (
                         <ListItem key={item.Id}>
-                            <ListIcon><Button onClick={() => dispatch(updateCount(item, -1))} style={{ background: 'none', border: 'none', cursor: 'pointer' }}><Icon size='big' name='minus circle' /></Button></ListIcon>
-                            <ListIcon><Button onClick={() => dispatch(updateCount(item, 1))} style={{ background: 'none', border: 'none', cursor: 'pointer' }}><Icon size='big' name='plus circle' /></Button></ListIcon>
+                            <ListIcon><Button onClick={() => dispatch(updateCount(item, -1))} style={{ background: 'none', border: 'none', cursor: 'pointer' ,marginLeft:-30}}><Icon size='big' name='minus circle' color='purple' /></Button></ListIcon>
+                            <ListIcon><Button onClick={() => dispatch(updateCount(item, 1))} style={{ background: 'none', border: 'none', cursor: 'pointer' }}><Icon size='big' name='plus circle' color='violet'/></Button></ListIcon>
                             <ListContent >
                                 <h2>{item.Count} {item.Name}</h2>
                             </ListContent>
-                            <ListIcon><Button onClick={() => dispatch(updateCount(item, -item.Count))} style={{ background: 'none', border: 'none', cursor: 'pointer' }}><Icon size='big' name='trash alternate' /></Button></ListIcon>
+                            <ListIcon><Button onClick={() => dispatch(updateCount(item, -item.Count))} style={{ background: 'none', border: 'none', cursor: 'pointer' }}><Icon size='big' name='trash alternate' color='yellow'/></Button></ListIcon>
                         </ListItem>
                     ))}
             </List>

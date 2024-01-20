@@ -79,7 +79,7 @@ const SignUp = () => {
 
                 <input {...register("Tz")} placeholder="מספר זהות" />
                 <p style={{ color: "red" }}>{errors.Tz?.message}</p>
-                <Input type="submit" />
+                <Input type="submit"/>
             </Form>
             <br></br>
             <Message attached='bottom' warning>

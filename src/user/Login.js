@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Button, Icon, Form, Input } from 'semantic-ui-react'
+import { Button, Icon, Form, Input, Label } from 'semantic-ui-react'
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from 'yup'
 import axios from 'axios';
@@ -39,12 +39,12 @@ const Login = () => {
     return (
         <>
             <Form onSubmit={handleSubmit(onSubmit)} style={{ maxWidth: '400px', margin: 'auto' }}>
-                <input {...register("userName")} placeholder="שם משתמש" />
-                <p style={{ color: "red" }}>{errors.userName?.message}</p>
-
-                <input type='password'{...register("password")} placeholder="סיסמא" />
-                <p style={{ color: "red" }}>{errors.password?.message}</p>
-
+                <input style={{ marginTop: "20px" }} {...register("userName")} placeholder="שם משתמש" />
+                {errors.userName && <Label style={{ position: "absolute", top: 35, left: 50 }} color='red' pointing>{errors.userName.message} </Label>}
+                <input style={{ marginTop: "10px" }} type='password'{...register("password")} placeholder="סיסמא" />
+                {errors.password && <Label prompt style={{ position: "absolute", bottom: 35, right: 50 }} color='red' pointing>{errors.password.message} </Label>}
+                <br />
+                <br />
                 <Input type='submit' />
             </Form>
             <br />

@@ -11,12 +11,12 @@ const Home = ({ page }) => {
                         <Icon name="home" size='large' color="teal" style={{ marginLeft: "10px" }} /> דף הבית
                     </Menu.Item>
                 </Link>
-                <Link to="/userrecipes">
+                <Link to="/recipes/user">
                     <Menu.Item active={page === 'המתכונים שלי'} >
                         <Icon name="male" size='large' color="teal" style={{ marginLeft: "10px" }} />  המתכונים שלי
                     </Menu.Item>
                 </Link>
-                <Link to="/allRecipes">
+                <Link to="/recipes">
                     <Menu.Item active={page === 'מתכונים'}>
                         <Icon name="birthday cake" size='large' color="teal" style={{ marginLeft: "10px" }} />  מתכונים
                     </Menu.Item>
@@ -26,7 +26,7 @@ const Home = ({ page }) => {
                         <Icon name="shopping basket" size='large' color="teal" style={{ marginLeft: "10px" }} />רשימת קניות
                     </Menu.Item>
                 </Link>
-                <Link to="/addRecipe">
+                <Link to="/recipes/add">
                     <Menu.Item active={page === 'הוספת מתכון'}  >
                         <Icon name="plus" size='large' color="teal" style={{ marginLeft: "10px" }} /> הוספת מתכון
                     </Menu.Item>

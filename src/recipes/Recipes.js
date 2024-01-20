@@ -11,7 +11,7 @@ const Recipes = () => {
     const userId = localStorage.getItem("userId");
     const path = useLocation().pathname;
     const { recipesList, categoryList } = useSelector(state => ({
-        recipesList: state.recipes.filter(r => path === '/allRecipes' || r.UserId == userId),
+        recipesList: state.recipes.filter(r => path === '/recipes' || r.UserId == userId),
         categoryList: state.categoryList
     }));
 
@@ -30,9 +30,9 @@ const Recipes = () => {
 
     return (
         <div>
-            <Header page={path === '/allRecipes' ? 'מתכונים' : 'המתכונים שלי'} />
+            <Header page={path === '/recipes' ? 'מתכונים' : 'המתכונים שלי'} />
 
-            <Segment inverted color='teal' tertiary style={{ width: "80%", margin: "auto", opacity: "70%", zIndex: "2", display: "flex", justifyContent: "space-evenly" }}>
+            <Segment inverted color='teal' tertiary style={{ width: "80%", margin: "auto", opacity: "60%", zIndex: "2", display: "flex", justifyContent: "space-evenly" }}>
                 <Select icon='align justify' onChange={(_, { value }) => setCategoty(value)}
                     options={[{ key: 'none', value: 'none', text: 'קטגוריה' },
                     ...categoryList.map(c => ({ key: c.Id, value: c.Id, text: c.Name })),

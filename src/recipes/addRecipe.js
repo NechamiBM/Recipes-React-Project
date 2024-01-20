@@ -22,7 +22,6 @@ const schema = yup.object({
     )
 })
 
-
 const AddRecipe = () => {
     return (
         <div>
