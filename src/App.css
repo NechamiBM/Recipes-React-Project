@@ -51,3 +51,11 @@
 .recipe-img>img {
   height: 220px !important;
 }
+
+.before {
+  text-align: center;
+  background-image: url(./Images/img\(18\).JPG);
+  background-size: cover;
+  height: 100vh;
+  color: #fff;
+}

@@ -1,9 +1,7 @@
 const initialState = {
-    user: null,
     recipes: [],
     shoppingList: [],
     categoryList: [],
-    currentRecipe: null,
     difficulties: [{ Id: 1, Name: 'קל' }, { Id: 2, Name: 'בינוני' }, { Id: 3, Name: 'קשה' }]
 }
 
@@ -15,8 +13,17 @@ const Reducer = (state = initialState, action) => {
         case "SET_RECIPES": {
             return { ...state, recipes: action.payload }
         }
+        case "ADD_RECIPE": {
+            const recipes = [...state.recipes];
+            recipes.push(action.payload);
+            return { ...state, recipes }
+        }
+        case "EDIT_RECIPE": {
+            const recipes = [...state.recipes];
+            recipes[recipes.findIndex(x => x.Id === action.payload.Id)] = action.payload;
+            return { ...state, recipes }
+        }
         case "DELETE_RECIPE": {
-            console.log("payload", action.payload);
             const recipes = state.recipes.filter(r => r.Id !== action.payload)
             return { ...state, recipes }
         }
@@ -41,26 +48,13 @@ const Reducer = (state = initialState, action) => {
         }
         case "SET_CATEGORIES": {
             return { ...state, categoryList: action.payload }
-
         }
-        // case "SET_RECIPE":
-        //     return { ...state, recipes: action.data }
-        // case "ADD_RECIPE":
-        //     const recipes = [...state.recipes];
-        //     state.recipes.push(action.recipe);
-        //     return { ...state, recipes }
-        // case "EDIT_RECIPE": {
-        //     const recipes = [...state.recipes];
-        //     const findIndex = recipes.findIndex(x => x.Id == action.recipe.Id);
-        //     recipes[findIndex] = action.recipe;
-        //     return { ...state, recipes }
-        // }
-        // case "DELETE_RECIPE": {
-        //     const recipes = state.recipes.filter(x => x.id != action.id);
-        //     return { ...state, recipes }
-        // }
+        case 'ADD_CATEGORY': {
+            const categoryList = [...state.categoryList];
+            categoryList.push(action.payload);
+            return { ...state, categoryList }
+        }
         default: return { ...state }
     }
-
 }
 export default Reducer;

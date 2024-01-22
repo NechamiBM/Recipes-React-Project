@@ -31,11 +31,7 @@ const Home = ({ page }) => {
                         <Icon name="plus" size='large' color="teal" style={{ marginLeft: "10px" }} /> הוספת מתכון
                     </Menu.Item>
                 </Link>
-                <Link to="/addCategory">
-                    <Menu.Item active={page === 'הוספת קטגוריה'}  >
-                        <Icon name="plus" size='large' color="teal" style={{ marginLeft: "10px" }} />  הוספת קטגוריה
-                    </Menu.Item>
-                </Link>
+
                 <Link to="/">
                     <Menu.Menu position='left'>
                         <Menu.Item  >

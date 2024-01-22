@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 const userId = localStorage.getItem("userId");
 
 export const getShopingList = () => {
-    return dispach => axios.get(`http://localhost:8080/api/bay/${userId}`).then(res => {
+    return dispach => axios.get(`http://localhost:8080/api/buy/${userId}`).then(res => {
         dispach({ type: "SET_SHOPPINGLIST", payload: res.data });
     }).catch((error) => {
         console.error(error);
@@ -13,7 +13,7 @@ export const getShopingList = () => {
 
 export const addToCart = (product) => {
     return dispach =>
-        axios.post(`http://localhost:8080/api/bay`, { Name: product.Name, UserId: userId, Count: 1 })
+        axios.post(`http://localhost:8080/api/buy`, { Name: product.Name, UserId: userId, Count: 1 })
             .then((res) => {
                 dispach({ type: "EDIT_PRODUCT", payload: { Name: product.Name, UserId: userId, Count: res.data.Count } });
                 Swal.fire({
@@ -40,7 +40,7 @@ export const updateCount = (product, count) => {
                 confirmButtonText: "כן, אני רוצה למחוק!"
             }).then((result) => {
                 if (result.isConfirmed) {
-                    axios.post(`http://localhost:8080/api/bay/delete/${product.Id}`)
+                    axios.post(`http://localhost:8080/api/buy/delete/${product.Id}`)
                         .then(() => {
                             dispatch({ type: "DELETE_PRODUCT", payload: { Name: product.Name, user: product.UserId, Id: product.Id } });
                             Swal.fire({
@@ -62,7 +62,7 @@ export const updateCount = (product, count) => {
             });
         }
         else {
-            axios.post(`http://localhost:8080/api/bay/`, { Name: product.Name, UserId: product.UserId, Count: count }).then(res => {
+            axios.post(`http://localhost:8080/api/buy/`, { Name: product.Name, UserId: product.UserId, Count: count }).then(res => {
                 dispatch({ type: "EDIT_PRODUCT", payload: { Name: product.Name, UserId: product.UserId, Count: res.data.Count } })
             }).catch((err) => {
                 console.error(err, "err");

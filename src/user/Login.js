@@ -37,7 +37,7 @@ const Login = () => {
     };
 
     return (
-        <>
+        <div className='before'>
             <Form onSubmit={handleSubmit(onSubmit)} style={{ maxWidth: '400px', margin: 'auto' }}>
                 <input style={{ marginTop: "20px" }} {...register("userName")} placeholder="שם משתמש" />
                 {errors.userName && <Label style={{ position: "absolute", top: 35, left: 50 }} color='red' pointing>{errors.userName.message} </Label>}
@@ -56,7 +56,7 @@ const Login = () => {
                     </Button.Content>
                 </Button>
             </Link>
-        </>
+        </div>
     );
 }
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Icon, Input, Message, FormField } from 'semantic-ui-react'
+import { Form, Icon, Input, Message, FormField, Label, FormGroup,Button} from 'semantic-ui-react'
 import * as yup from 'yup'
 import { useForm } from 'react-hook-form';
 import { yupResolver } from "@hookform/resolvers/yup"
@@ -9,8 +9,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2'
 
 const schema = yup.object({
-    Username: yup.string().required("זהו שדה חובה"),
-    Password: yup.string().required("זהו שדה חובה"),
+    Username: yup.string().required("חובה להכניס שם משתמש"),
+    Password: yup.string().matches(/^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/, 'סיסמא צריכה לכלול אותיות ומספרים').required("זהו שדה חובה"),
     Name: yup.string().required("זהו שדה חובה"),
     Phone: yup.string().matches(/^[0-9]{7,10}$/, 'על מספר טלפון לכלול בין 7 ל-10 ספרות').required("זהו שדה חובה"),
     Email: yup.string().email("כתובת מייל אינה תקינה").required("זהו שדה חובה"),
@@ -25,7 +25,6 @@ const SignUp = () => {
     const navigate = useNavigate();
 
     const onSubmit = data => {
-        console.log("data: ", data)
         axios.post("http://localhost:8080/api/user/sighin", { Username: data.Username, Password: data.Password, Name: data.Name, Phone: data.Phone, Email: data.Email, Tz: data.Tz })
             .then(x => {
                 dispatch({ type: "SET_USER", payload: x.data });
@@ -33,7 +32,6 @@ const SignUp = () => {
                 localStorage.setItem("userId", x.data.Id);
                 navigate(`/home`);
             }).catch(err => {
-                console.error(err);
                 Swal.fire({
                     icon: "error",
                     title: "אופססס...",
@@ -44,48 +42,56 @@ const SignUp = () => {
     }
 
     return (
-        <div style={{ width: '60%', position: "absolute", left: "20%", backgroundColor: "coral", padding: "10px" }}>
-            <Message attached
-                header='ברוכים הבאים לאתר מתכונים'
-                content='אנא הכנס פרטים מדויקים!'
-            />
-            <Form onSubmit={handleSubmit(onSubmit)}>
+        <div className='before'>
+            <br />
+            <div style={{ width: '60%', position: "absolute", left: "20%", backgroundColor: "rgba(255, 255, 255, 0.7)", padding: "10px" }}>
+                <Message attached
+                    header='ברוכים הבאים לאתר מתכונים'
+                    content='אנא הכנס פרטים מדויקים!'
+                />
+                <Form onSubmit={handleSubmit(onSubmit)}>
+                    <FormGroup widths='equal'>
+                        <FormField required>
+                            <label>שם משתמש</label>
+                            <input {...register("Username")} placeholder="שם משתמש" />
+                            {errors.Username && <Label style={{ position: "absolute", top: 40, right: 50 }} color='red' pointing>{errors.Username.message} </Label>}
+                        </FormField>
+                        <FormField required>
+                            <label>סיסמא</label>
+                            <input type='password'{...register("Password")} placeholder="סיסמא" />
+                            {errors.Password && <Label style={{ position: "absolute", top: 40, left: 80 }} color='red' pointing>{errors.Password.message} </Label>}
+                        </FormField>
+                    </FormGroup>
+                    <FormField required>
+                        <label>שם ומשפחה</label>
+                        <input {...register("Name")} placeholder="שם ומשפחה" />
+                        {errors.Name && <Label style={{ position: "absolute", top: 115, left: 110 }} color='red' pointing>{errors.Name.message} </Label>}
+                    </FormField>
+                    <FormField required>
+                        <label>מספר פלאפון</label>
+                        <input {...register("Phone")} placeholder="פלא'" />
+                        {errors.Phone && <Label style={{ position: "absolute", top: 190, right: 140 }} color='red' pointing>{errors.Phone.message} </Label>}
+                    </FormField>
+                    <FormGroup widths='equal'>
+                    <FormField required>
+                        <label>כתובת אימייל</label>
+                        <input {...register("Email")} placeholder="כתובת דואר אלקטרוני" />
+                        {errors.Email && <Label style={{ position: "absolute", top: 265, right: 70 }} color='red' pointing>{errors.Email.message} </Label>}
+                    </FormField>
+                    <FormField required>
+                        <label>מספר זהות</label>
+                        <input {...register("Tz")} placeholder="מספר זהות" />
+                        {errors.Tz && <Label style={{ position: "absolute", top: 270, left: 30, zIndex: 2 }} color='red' pointing>{errors.Tz.message} </Label>}
+                    </FormField>
+                    </FormGroup>
+                    <Button type="submit" content='הרשמה' color='teal' />
+                </Form>
                 <br></br>
-                <input {...register("Username")} placeholder="שם משתמש" />
-                <p style={{ color: "red" }}>{errors.Username?.message}</p>
-
-                <input type='password'{...register("Password")} placeholder="סיסמא" />
-                <p style={{ color: "red" }}>{errors.Password?.message}</p>
-
-                <input {...register("Name")} placeholder="שם ומשפחה" />
-                <p style={{ color: "red" }}>{errors.Name?.message}</p>
-
-                <input {...register("Phone")} placeholder="פלא'" />
-                <p style={{ color: "red" }}>{errors.Phone?.message}</p>
-{/* 
-                {errors.Email?.message ?
-                    <FormField
-                        id='form-input-control-error-email'
-                        control={Input}
-                        label='Email'
-                        placeholder='joe@schmoe.com'
-                        error={{
-                            content: 'Please enter a valid email address',
-                            pointing: 'below',
-                        }}
-                    /> : null} */}
-                <input {...register("Email")} placeholder="כתובת דואר אלקטרוני" />
-                <p style={{ color: "red" }}>{errors.Email?.message}</p>
-
-                <input {...register("Tz")} placeholder="מספר זהות" />
-                <p style={{ color: "red" }}>{errors.Tz?.message}</p>
-                <Input type="submit"/>
-            </Form>
-            <br></br>
-            <Message attached='bottom' warning>
-                <Icon name='help' />
-                יש לך חשבון?&nbsp;<Link to="/login">הכנס כאן</Link>&nbsp;במקום.
-            </Message>
+                <Message attached='bottom' warning>
+                    <Icon name='help' />
+                    יש לך חשבון?&nbsp;<Link to="/login">הכנס כאן</Link>&nbsp;במקום.
+                </Message>
+            </div >
         </div >
     )
 }

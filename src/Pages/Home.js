@@ -6,7 +6,7 @@ import img3 from '../Images/img (3).jpg';
 import img4 from '../Images/img (12).jpg';
 import img5 from '../Images/img (21).jpg';
 import img6 from '../Images/img (24).jpg';
-import { Button, ButtonGroup, ButtonOr, Icon } from 'semantic-ui-react';
+import { Button, ButtonGroup, ButtonOr } from 'semantic-ui-react';
 const Home = () => {
     const images = [img1, img2, img3, img4, img5, img6];
     const [currentImg, setcurrentImg] = useState(0);
@@ -30,8 +30,8 @@ const Home = () => {
             <Header page={'דף הבית'} />
             <img style={{ height: "75vh" }} src={images[currentImg]} alt={`Image ${currentImg + 1}`} />
             <br />
-            <ButtonGroup  style={{ direction: "ltr" }}>
-                <Button onClick={prevImage} basic labelPosition='right' icon='left chevron'/>
+            <ButtonGroup style={{ direction: "ltr" }}>
+                <Button onClick={prevImage} basic labelPosition='right' icon='left chevron' />
                 <ButtonOr />
                 <Button onClick={nextImage} basic labelPosition='left' icon='right chevron' />
             </ButtonGroup>

@@ -36,3 +36,32 @@ export const deleteRecipe = (recipe) => {
         })
     }
 }
+
+export const addRecipe = (data) => {
+    return dispatch => axios.post('http://localhost:8080/api/recipe', data)
+        .then(() => {
+            dispatch({ type: "ADD_RECIPE", payload: data });
+            Swal.fire({
+                icon: "success",
+                title: data.Name + " נוסף בהצלחה!",
+                showConfirmButton: false,
+                timer: 1500
+            });
+        })
+        .catch((err) => { 
+            console.error(err);
+            Swal.fire({
+                icon: "error",
+                title: err.response.data,
+                showConfirmButton: false,
+                timer: 1500
+            });
+         })
+}
+
+export const editRecipe = (data, selectRecipe) => {
+    return dispatch => axios.post('http://localhost:8080/api/recipe/edit', { ...data, UserId: selectRecipe?.UserId, Id: selectRecipe?.Id })
+        .then((response) => {
+            dispatch({ type: "EDIT_RECIPE", payload: response.data })
+        }).catch((err) => { console.error(err) })
+}
