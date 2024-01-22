@@ -7,6 +7,7 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2'
+import { addUser } from '../Services/UserService';
 
 const schema = yup.object({
     Username: yup.string().required("חובה להכניס שם משתמש"),
@@ -25,20 +26,7 @@ const SignUp = () => {
     const navigate = useNavigate();
 
     const onSubmit = data => {
-        axios.post("http://localhost:8080/api/user/sighin", { Username: data.Username, Password: data.Password, Name: data.Name, Phone: data.Phone, Email: data.Email, Tz: data.Tz })
-            .then(x => {
-                dispatch({ type: "SET_USER", payload: x.data });
-                localStorage.setItem("userName", x.data.Name);
-                localStorage.setItem("userId", x.data.Id);
-                navigate(`/home`);
-            }).catch(err => {
-                Swal.fire({
-                    icon: "error",
-                    title: "אופססס...",
-                    text: err.response.data
-                });
-                navigate('/');
-            });
+       dispatch(addUser(data,navigate));
     }
 
     return (
