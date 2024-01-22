@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Icon, Input, Message, FormField, Label, FormGroup,Button} from 'semantic-ui-react'
+import { Form, Icon, Message, FormField, Label, FormGroup,Button} from 'semantic-ui-react'
 import * as yup from 'yup'
 import { useForm } from 'react-hook-form';
 import { yupResolver } from "@hookform/resolvers/yup"
@@ -96,4 +96,4 @@ const SignUp = () => {
     )
 }
 
-export default SignUp
+export default SignUp;

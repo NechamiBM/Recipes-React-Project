@@ -11,19 +11,17 @@ import Buy from './Pages/Buy';
 
 function App() {
   return (
-    <>
-      <Routes>
-        <Route path='/' element={<EnterPage />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/signup' element={<SignUp />} />
-        <Route path='/home' element={<Home />} />
-        <Route path='/recipes/user' element={<Recipes />} />
-        <Route path='/recipes' element={<Recipes />} />
-        <Route path='/buy' element={<Buy />} />
-        <Route path='/recipes/add' element={<AddRecipe />} />
-        <Route path='/recipes/edit' element={<AddRecipe />} />
-      </Routes>
-    </>
+    <Routes>
+      <Route path='/' element={<EnterPage />} />
+      <Route path='/login' element={<Login />} />
+      <Route path='/signup' element={<SignUp />} />
+      <Route path='/home' element={<Home />} />
+      <Route path='/recipes/user' element={<Recipes />} />
+      <Route path='/recipes' element={<Recipes />} />
+      <Route path='/buy' element={<Buy />} />
+      <Route path='/recipes/add' element={<AddRecipe />} />
+      <Route path='/recipes/edit' element={<AddRecipe />} />
+    </Routes>
   );
 }
 

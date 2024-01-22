@@ -1,5 +1,5 @@
 import Header from '../Pages/Header';
-import { CardGroup, Segment, Input, Select, Checkbox, Button, Label, Icon, SidebarPusher, Menu, MenuItem, Sidebar, SidebarPushable } from 'semantic-ui-react';
+import { Segment, Input, Select, Checkbox, Button, Label, Icon, SidebarPusher, Menu, MenuItem, Sidebar, SidebarPushable } from 'semantic-ui-react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import Recipe from './Recipe';
@@ -64,14 +64,14 @@ const Recipes = () => {
                 </Sidebar>
                 <SidebarPusher>
                     <Segment basic>
-                        <CardGroup style={{ justifyContent: "center" }}>
+                        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-evenly' }}>
                             {recipesList.map(recipe =>
                                 (!duration || parseInt(duration) >= parseInt(recipe.Duration)) &&
                                 (difficulty === 'none' || difficulty === recipe.Difficulty) &&
                                 (categoty === 'none' || parseInt(categoty) === recipe.CategoryId) &&
                                 <Recipe key={recipe.Id} recipe={recipe} />
                             )}
-                        </CardGroup>
+                        </div>
                     </Segment>
                 </SidebarPusher>
             </SidebarPushable>

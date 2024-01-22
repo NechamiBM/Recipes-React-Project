@@ -25,7 +25,6 @@ const Recipe = ({ recipe, isClosed = true }) => {
             <Button disabled={userid != recipe.UserId} style={{ position: "absolute", top: 10, left: 70, zIndex: 1, width: 50 }} color='green' icon='trash alternate' onClick={() => dispatch(deleteRecipe(recipe))} />
             {!isClosed && <Button style={{ position: "absolute", top: 10, left: 130, zIndex: 1, width: 50 }} color='yellow' icon='print' onClick={() => (window.print())} />}
             <Image wrapped src={recipe.Img} size="large" className="recipe-img" />
-
             <CardContent>
                 <CardHeader >{recipe.Name}</CardHeader>
                 <CardDescription>{recipe.Description}</CardDescription>
@@ -60,4 +59,4 @@ const Recipe = ({ recipe, isClosed = true }) => {
     )
 }
 
-export default Recipe
+export default Recipe;
